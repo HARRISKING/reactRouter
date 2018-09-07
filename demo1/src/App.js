@@ -13,39 +13,54 @@ const About = () => (
   </div>
 )
 
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-)
+class Topic extends React.Component {
 
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
+  render(){
+    console.log('match',this.props);
 
-    <Route path={`${match.path}/:topicId`} component={Topic}/>
-    <Route exact path={match.path} render={() => (
-      <h3>Please select a topic.</h3>
-    )}/>
-  </div>
-)
+    return (
+      <div>
+        <h3>{this.props.match.params.topicId}</h3>
+        <Route path={`${this.props.match.path}/:topicId`} component={Topic}/>
+
+      </div>
+    )
+  }
+}
+
+class Topics extends React.Component {
+  render() {
+    console.log('多福多寿',this.props);
+
+    return (
+      <div>
+        <h2>Topics</h2>
+        <ul>
+          <li>
+            <Link to={`${this.props.match.url}/rendering`}>
+              Rendering with React
+            </Link>
+          </li>
+          <li>
+            <Link to={`${this.props.match.url}/components`}>
+              Components
+            </Link>
+          </li>
+          <li>
+            <Link to={`${this.props.match.url}/props-v-state`}>
+              Props v. State
+            </Link>
+          </li>
+        </ul>
+    
+        <Route path={`${this.props.match.path}/:topicId`} component={Topic}/>
+        <Route exact path={this.props.match.path} render={() => (
+          <h3>Please select a topic.</h3>
+        )}/>
+      </div>
+    )
+  }
+}
 
 const BasicExample = () => (
   <Router>
